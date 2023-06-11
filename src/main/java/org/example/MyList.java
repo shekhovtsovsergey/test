@@ -101,31 +101,36 @@ public class MyList {
 
 
     public void trimToSize() {
-        if (size < elements.length) {
-            System.arraycopy(elements, 0, elements, 0, size);
+        if (size == elements.length){
+            return;
         }
+        String[] newElements = new String[size];
+        System.arraycopy(elements, 0, newElements, 0, size);
+        elements = newElements;
     }
 
     public void set(int index, String element) {
-        if (index < 0 || index > elements.length) {
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Индекс " + index + " лежит за пределами списка");
         }
         elements[index] = element;
     }
 
-    public void addIndexOf(int index, String element){
+    public void add(int index, String element) {
         if (size == elements.length) {
             grow();
         }
-        System.arraycopy(elements,index,elements,index+1,size-index);
+        System.arraycopy(elements, index, elements, index + 1, size - index);
         elements[index] = element;
         size++;
     }
 
-    public void clear (){
+    public void clear() {
         for (int i = 0; i < size; i++) {
             elements[i] = null;
         }
-        size=0;
+        size = 0;
     }
+
+
 }
