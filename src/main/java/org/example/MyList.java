@@ -16,13 +16,12 @@ public class MyList {
 
     public boolean contains(String element) {
         for (int i = 0; i < size; i++) {
-            if (Objects.equals(element,elements[i])) {
+            if (Objects.equals(element, elements[i])) {
                 return true;
             }
         }
         return false;
     }
-
 
 
     public void add(String element) {
@@ -34,37 +33,35 @@ public class MyList {
     }
 
 
-    private void grow(){
+    private void grow() {
         String[] newElements = new String[(int) (elements.length * 1.5)];
-        System.arraycopy(elements,0,newElements,0,size);
+        System.arraycopy(elements, 0, newElements, 0, size);
         elements = newElements;
     }
 
 
-
     public boolean remove(int index) {
-        if (index < 0 || index >= size){
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Индекс " + index + " лежит за пределами списка");
         }
-        System.arraycopy(elements,index+1,elements,index,size-index-1);
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
         size--;
         return true;
     }
 
     public boolean remove(String element) {
         int index = indexOf(element);
-        if (index == -1){
-         return false;
+        if (index == -1) {
+            return false;
         }
-        System.arraycopy(elements,index+1,elements,index,size-index-1);
+        System.arraycopy(elements, index + 1, elements, index, size - index - 1);
         size--;
         return true;
     }
 
 
-
     public String get(int index) {
-        if (index < 0 || index >= size){
+        if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Индекс " + index + " лежит за пределами списка");
         }
         return elements[index];
@@ -77,7 +74,7 @@ public class MyList {
 
     public int indexOf(String element) {
         for (int i = 0; i < size; i++) {
-            if (Objects.equals(element,elements[i])) {
+            if (Objects.equals(element, elements[i])) {
                 return i;
             }
         }
@@ -86,14 +83,13 @@ public class MyList {
 
 
     public int lastIndexOf(String element) {
-        for (int i = size-1; i >= 0; i--) {
-            if (Objects.equals(element,elements[i])) {
+        for (int i = size - 1; i >= 0; i--) {
+            if (Objects.equals(element, elements[i])) {
                 return i;
             }
         }
         return -1;
     }
-
 
 
     @Override
@@ -103,4 +99,33 @@ public class MyList {
                 .collect(Collectors.joining(", ", "[", "]"));
     }
 
+
+    public void trimToSize() {
+        if (size < elements.length) {
+            System.arraycopy(elements, 0, elements, 0, size);
+        }
+    }
+
+    public void set(int index, String element) {
+        if (index < 0 || index > elements.length) {
+            throw new IndexOutOfBoundsException("Индекс " + index + " лежит за пределами списка");
+        }
+        elements[index] = element;
+    }
+
+    public void addIndexOf(int index, String element){
+        if (size == elements.length) {
+            grow();
+        }
+        System.arraycopy(elements,index,elements,index+1,size-index);
+        elements[index] = element;
+        size++;
+    }
+
+    public void clear (){
+        for (int i = 0; i < size; i++) {
+            elements[i] = null;
+        }
+        size=0;
+    }
 }
